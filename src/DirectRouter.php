@@ -16,28 +16,17 @@ use Psr\Container\ContainerInterface;
 class DirectRouter extends AbstractPlugin implements MessageBusRouterPlugin
 {
     
-    /**
-     * @var ContainerInterface
-     */
-    private $container;
-    
-    public function __construct(ContainerInterface $container)
-    {
-        $this->container = $container;
-    }
-    
     public function onRouteMessage(ActionEvent $actionEvent): void
     {
         // Find handler in the same namespace
         $command_fqcn = $actionEvent->getParam(MessageBus::EVENT_PARAM_MESSAGE);
         $handler_fqcn = get_class($command_fqcn) . "Handler";
         
-        if ($this->container->has($handler_fqcn)) {
-            $actionEvent->setParam(
-                MessageBus::EVENT_PARAM_MESSAGE_HANDLER,
-                $handler_fqcn
-            );
-        }
+        $actionEvent->setParam(
+            MessageBus::EVENT_PARAM_MESSAGE_HANDLER,
+            $handler_fqcn
+        );
+        
         
     }
     

@@ -13,8 +13,9 @@ class Command {
 ...
 }
 
+// apply standard invoking strategy
 class CommandHandler {
-    function handle(Command $cmd) {...}
+    function __invoke(Command $cmd) {...} 
 }
 ```
 
@@ -30,8 +31,14 @@ $command = new \Some\Space\Command(...);
 //
 // Prepare router
 //
-$router = new DirectRouter($container);
+$router = new DirectRouter();
 $router->attachToMessageBus($commandBus);
+
+//
+// Add service locator (to instantiate the handler)
+//
+$locator = new ServiceLocatorPlugin($container);
+$locator->attachToMessageBus($bus);
 
 //
 // Dispatch command
