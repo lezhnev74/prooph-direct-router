@@ -33,11 +33,9 @@ class DirectRouter extends AbstractPlugin implements MessageBusRouterPlugin
         $handler_fqcn = get_class($command_fqcn) . "Handler";
         
         if ($this->container->has($handler_fqcn)) {
-            $handler_instance = $this->container->get($handler_fqcn);
-            
             $actionEvent->setParam(
                 MessageBus::EVENT_PARAM_MESSAGE_HANDLER,
-                $handler_instance
+                $handler_fqcn
             );
         }
         
