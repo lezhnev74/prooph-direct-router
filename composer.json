@@ -1,12 +1,14 @@
 {
     "name": "dmitriylezhnev/prooph-try",
+    "license": "MIT",
     "authors": [
         {
             "name": "Dmitriy Lezhnev",
-            "email": "meekman74@gmail.com"
+            "email": "lezhnev.work@gmail.com"
         }
     ],
     "require": {
+        "php": "^7.1",
         "prooph/service-bus": "^6.0",
         "psr/container": "^1.0"
     },

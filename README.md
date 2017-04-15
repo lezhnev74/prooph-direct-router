@@ -1,4 +1,10 @@
-# Router for implicit mapping command to it's handler
+[![Latest Stable Version](https://poser.pugx.org/lezhnev74/prooph-direct-router/v/stable)](https://packagist.org/packages/lezhnev74/prooph-direct-router)
+[![Build Status](https://travis-ci.org/lezhnev74/prooph-direct-router.svg?branch=master)](https://travis-ci.org/lezhnev74/prooph-direct-router)
+[![License](https://poser.pugx.org/lezhnev74/prooph-direct-router/license)](https://packagist.org/packages/lezhnev74/prooph-direct-router)
+[![Total Downloads](https://poser.pugx.org/lezhnev74/prooph-direct-router/downloads)](https://packagist.org/packages/lezhnev74/prooph-direct-router)
+
+
+# Router for implicit mapping command to it's handler (in the same namespace)
 Command maps to the same FQCN with "Handler" appended:
 ```php
 namespace Some\Space;
