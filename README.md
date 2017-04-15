@@ -41,4 +41,10 @@ $commandBus->dispatch($command);
 
 ## Benefits
 By using conventions (implicit routing) you can easily add commands\queries without constant updating configurations.
-Just a handy tool. 
+Just a handy tool.
+ 
+## Install
+
+```
+composer require prooph-direct-router
+```
