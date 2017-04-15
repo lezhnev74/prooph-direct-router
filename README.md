@@ -46,5 +46,5 @@ Just a handy tool.
 ## Install
 
 ```
-composer require prooph-direct-router
+composer require lezhnev74/prooph-direct-router
 ```
