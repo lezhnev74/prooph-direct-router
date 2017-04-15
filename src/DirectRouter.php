@@ -1,9 +1,11 @@
 <?php
+
 namespace DirectRouter;
 
 use Prooph\Common\Event\ActionEvent;
 use Prooph\ServiceBus\MessageBus;
-use Prooph\ServiceBus\Plugin\Router\SingleHandlerRouter;
+use Prooph\ServiceBus\Plugin\AbstractPlugin;
+use Prooph\ServiceBus\Plugin\Router\MessageBusRouterPlugin;
 use Psr\Container\ContainerInterface;
 
 //
@@ -11,7 +13,7 @@ use Psr\Container\ContainerInterface;
 // F.e. \A\CommandName => \A\CommandNameHandler
 // Handler class must have "handle" method
 //
-class DirectRouter extends SingleHandlerRouter
+class DirectRouter extends AbstractPlugin implements MessageBusRouterPlugin
 {
     
     /**
@@ -28,22 +30,26 @@ class DirectRouter extends SingleHandlerRouter
     {
         // Find handler in the same namespace
         $command_fqcn = $actionEvent->getParam(MessageBus::EVENT_PARAM_MESSAGE);
-        $handler_fqcn = get_class($command_fqcn)."Handler";
-             
+        $handler_fqcn = get_class($command_fqcn) . "Handler";
+        
         if ($this->container->has($handler_fqcn)) {
             $handler_instance = $this->container->get($handler_fqcn);
             
-            // Check that handler has handle method
-            if(!method_exists($handler_instance, 'handle')) {
-                return;
-            }
-                        
             $actionEvent->setParam(
                 MessageBus::EVENT_PARAM_MESSAGE_HANDLER,
-                [$handler_instance, 'handle']
+                $handler_instance
             );
         }
         
+    }
+    
+    public function attachToMessageBus(MessageBus $messageBus): void
+    {
+        $this->listenerHandlers[] = $messageBus->attach(
+            MessageBus::EVENT_DISPATCH,
+            [$this, 'onRouteMessage'],
+            MessageBus::PRIORITY_ROUTE
+        );
     }
     
     

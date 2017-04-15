@@ -3,7 +3,7 @@ namespace DirectRouterTests\TestCommand;
 
 class TestCommandHandler
 {
-    function handle(TestCommand $command): void {
+    function __invoke(TestCommand $command): void {
         echo $command->getData();
     }
 }
